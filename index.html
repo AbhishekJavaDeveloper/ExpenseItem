@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">        
-        <label for="expenseAmount">Expense Amount:</label>
-        <input type="text" id="expenseAmount" name="expenseAmount" placeholder="Enter expense amount"> 
+    <div class="container mt-5">
+        <h1 class="mb-4">Expense Tracker</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="expenseAmount">Expense Amount:</label>
+                <input type="text" class="form-control" id="expenseAmount" name="expenseAmount" placeholder="Enter expense amount">
+            </div>
+            <div class="col-md-4">
+                <label for="choosedescription">Choose Description:</label>
+                <input type="text" class="form-control" id="choosedescription" name="chooseDescription" placeholder="Enter description">
+            </div>
+            <div class="col-md-4">
+                <label for="categorySelect">Choose a category:</label>
+                <select class="form-control" id="categorySelect" name="category">
+                    <option value="fuel">Fuel</option>
+                    <option value="food">Food</option>
+                    <option value="electricity">Electricity</option>
+                    <option value="movie">Movie</option>
+                </select>
+            </div>
+        </div>
 
-        <label for="choosedescription">Choose Description</label>
-        <input type="text" id="choosedescription" name="chooseDescription" placeholder="Enter description">
-
-        <label for="categorySelect">Choose a category:</label>
-        <select class="dropdown" id="categorySelect" name="category">
-            <option value="fuel">fuel</option>
-            <option value="food">food</option>
-            <option value="electicity">electricity</option>
-            <option value="Movie">Movie</option>
-        </select>
-
-        <button id="addExpenseButton">Add Expense</button>
+        <button class="btn btn-primary mt-3" id="addExpenseButton">Add Expense</button>
       
-        <ul id="expensesList"></ul>
+        <ul class="mt-4" id="expensesList"></ul>
     </div>
     
     <script src="script.js"></script>

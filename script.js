@@ -22,7 +22,38 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("categorySelect").value = "";
         }
     });
-
+    
+    function editExpense(button) {
+        const listItem = button.parentElement;
+        const expenseAmount = listItem.querySelector("span:nth-of-type(1)").textContent.split(":")[1].trim();
+        const description = listItem.querySelector("span:nth-of-type(2)").textContent.split(":")[1].trim();
+        const category = listItem.querySelector("span:nth-of-type(3)").textContent.split(":")[1].trim();
+    
+        document.getElementById("expenseAmount").value = expenseAmount;
+        document.getElementById("choosedescription").value = description;
+        document.getElementById("categorySelect").value = category;
+    
+        listItem.remove();
+    }
+    
+    function deleteExpense(button) {
+        const listItem = button.parentElement;
+        const expenseAmount = listItem.querySelector("span:nth-of-type(1)").textContent.split(":")[1].trim();
+        const description = listItem.querySelector("span:nth-of-type(2)").textContent.split(":")[1].trim();
+        const category = listItem.querySelector("span:nth-of-type(3)").textContent.split(":")[1].trim();
+    
+        listItem.remove();
+        removeExpenseFromLocalStorage(expenseAmount, description, category);
+    }
+    
+    function removeExpenseFromLocalStorage(amount, description, category) {
+        const expenseData = JSON.parse(localStorage.getItem("expenses")) || [];
+        const updatedExpenseData = expenseData.filter(expense => {
+            return !(expense.amount === amount && expense.description === description && expense.category === category);
+        });
+        localStorage.setItem("expenses", JSON.stringify(updatedExpenseData));
+    }
+    
     function createExpenseItem(amount, description, category) {
         const listItem = document.createElement("li");
         listItem.innerHTML = `
@@ -41,36 +72,4 @@ document.addEventListener("DOMContentLoaded", function () {
         expenseData.push({ amount, description, category });
         localStorage.setItem("expenses", JSON.stringify(expenseData));
     }
-
-function editExpense(button) {
-    const listItem = button.parentElement;
-    const expenseAmount = listItem.querySelector("span:nth-of-type(1)").textContent.split(":")[1].trim();
-    const description = listItem.querySelector("span:nth-of-type(2)").textContent.split(":")[1].trim();
-    const category = listItem.querySelector("span:nth-of-type(3)").textContent.split(":")[1].trim();
-
-    document.getElementById("expenseAmount").value = expenseAmount;
-    document.getElementById("choosedescription").value = description;
-    document.getElementById("categorySelect").value = category;
-
-    listItem.remove();
-}
-
-function deleteExpense(button) {
-    const listItem = button.parentElement;
-    const expenseAmount = listItem.querySelector("span:nth-of-type(1)").textContent.split(":")[1].trim();
-    const description = listItem.querySelector("span:nth-of-type(2)").textContent.split(":")[1].trim();
-    const category = listItem.querySelector("span:nth-of-type(3)").textContent.split(":")[1].trim();
-
-    listItem.remove();
-    removeExpenseFromLocalStorage(expenseAmount, description, category);
-}
-
-function removeExpenseFromLocalStorage(amount, description, category) {
-    const expenseData = JSON.parse(localStorage.getItem("expenses")) || [];
-    const updatedExpenseData = expenseData.filter(expense => {
-        return !(expense.amount === amount && expense.description === description && expense.category === category);
-    });
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenseData));
-}
-
 });
